@@ -1,0 +1,58 @@
+<div class="container container-fixed-lg mt-5">
+  <div class="row">
+    <div class="col-12 d-flex">
+      <div class="col-12 card no-border no-margin widget-loader-circle todolist-widget pending-projects-widget align-self-stretch">
+        <div class="card-header bg-white">
+          <div class="row">
+            <div class="col col-md-7 card-title"><i class="fa fa-save"></i> Crear Cliente</div>
+            <div class="col col-md-5 text-right">
+              <a class="btn btn-sm btn-outline-secondary" routerLink="/customers"><i class="fa fa-arrow-left"></i> Atrás</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-block flex-1">
+          <form *ngIf="!isLoading" [formGroup]="singupForm" (ngSubmit)="save(singupForm)">
+            <div class="row">
+              <div class="col col-md-4">
+                <div class="form-group">
+                  <label for="dni">DNI</label>
+                  <input formControlName="dni" class="form-control" id="dni" type="text" placeholder="70199482">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-md-4">
+                <div class="form-group">
+                  <label for="nombres">Nombres</label>
+                  <input formControlName="nombres" class="form-control" id="nombres" type="text" placeholder="Carlos">
+                </div>
+              </div>
+              <div class="col col-md-4">
+                <div class="form-group">
+                  <label for="apellidoPaterno">Apellido Paterno</label>
+                  <input formControlName="apellidoPaterno" class="form-control" id="apellidoPaterno" type="text" placeholder="Díaz">
+                </div>
+              </div>
+              <div class="col col-md-4">
+                <div class="form-group">
+                  <label for="apellidoMaterno">Apellido Materno</label>
+                  <input formControlName="apellidoMaterno" class="form-control" id="apellidoMaterno" type="text" placeholder="Chávez">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-md-12 text-center">
+                <button [disabled]="singupForm.invalid" type="submit" class="btn btn-sm btn-success m-2 text-white"><i class="fa fa-save"></i> Guardar</button>
+              </div>
+            </div>
+          </form>
+          <div class="row text-center">
+            <div class="col col-md-12 text-center" *ngIf="isLoading">
+              <img src="assets/public/imgs/loader.gif" width="150px">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
