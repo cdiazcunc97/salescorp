@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col col-md-7 card-title"><i class="fa fa-list"></i> Lista de Clientes</div>
             <div class="col col-md-5 text-right">
-              <a class="btn btn-sm btn-primary" routerLink="/customers/create"><i class="fa fa-plus-circle"></i> Nuevo</a>
+              <a class="btn btn-sm btn-primary" [routerLink]="'/customers/create'"><i class="fa fa-plus-circle"></i> Nuevo</a>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let customer of customers" [id]="'customer-' + customer.idCliente">
+              <tr *ngFor="let customer of paginator.items" [id]="'customer-' + customer.idCliente">
                 <td>
                   {{ customer.dni }}
                 </td>
@@ -45,7 +45,7 @@
                   </label>
                 </td>
                 <td class="text-center">
-                  <div class="btn-group" role="group" aria-label="Opciones">
+                  <div class="btn-group btn-sm" role="group" aria-label="Opciones">
                     <a routerLink="/customers/edit/{{ customer.idCliente }}" class="btn btn-sm btn-primary" title="Editar"><i class="fas fa-edit text-white"></i></a>
                     <a routerLink="/customers/detail/{{ customer.idCliente }}" class="btn btn-sm btn-info" title="Ver"><i class="fas fa-eye text-white"></i></a>
                     <a (click)="deleteCustomer(customer.idCliente)" class="btn btn-sm btn-danger pointer-event" title="Eliminar" style="cursor: pointer;"><i class="fas fa-trash text-white"></i></a>
@@ -58,10 +58,11 @@
             <div class="col col-md-12 text-center" *ngIf="isLoading">
               <img src="assets/public/imgs/loader.gif" width="120px">
             </div>
-            <div class="col col-md-12 text-center" *ngIf="!isLoading && customers.length == 0">
+            <div class="col col-md-12 text-center" *ngIf="!isLoading && paginator.items.length == 0">
               <span>No existen registros de clientes...</span>
             </div>
           </div>
+          <app-paginator [urlBase]="'customers'" [pageInit]="paginator.pageInit" [currentPage]="paginator.currentPage" [lastPage]="paginator.lastPage" [isLoading]="isLoading" [itemsPerPage]="paginator.itemsPerPage"></app-paginator>
         </div>
       </div>
     </div>

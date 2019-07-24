@@ -1,0 +1,9 @@
+<div class="row ml-2 mb-2">
+  <div *ngIf="!isLoading" class="btn-group btn-sm">
+    <a href="/{{ urlBase + '?page=' + (currentPage - 1) + '&limit=' + itemsPerPage }}" class="{{ currentPage != pageInit ? 'btn btn-sm btn-outline-primary' : 'btn btn-sm btn-outline-primary disabled'}}" title="Anterior"><i class="fas fa-chevron-left"></i></a>
+    <a href="/{{ urlBase + '?page=' + (currentPage - 1) + '&limit=' + itemsPerPage }}" *ngIf="currentPage != pageInit" class="btn btn-sm btn-outline-primary">{{ currentPage == pageInit ? currentPage : (currentPage - 1) }}</a>
+    <a class="btn btn-sm btn-primary disabled text-white">{{ currentPage }}</a>
+    <a href="/{{ urlBase + '?page=' + (currentPage + 1) + '&limit=' + itemsPerPage }}" *ngIf="currentPage != lastPage" class="btn btn-sm btn-outline-primary">{{ (currentPage + 1) }}</a>
+    <a href="/{{ urlBase + '?page=' + (currentPage + 1) + '&limit=' + itemsPerPage }}" class="{{ currentPage != lastPage ? 'btn btn-sm btn-outline-primary' : 'btn btn-sm btn-outline-primary disabled'}}" title="Siguiente"><i class="fas fa-chevron-right"></i></a>
+  </div>
+</div>

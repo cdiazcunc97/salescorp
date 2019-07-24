@@ -11,7 +11,7 @@ import {DetailProductComponent} from './components/product/detail-product/detail
 
 const routes: Routes = [
   { path: 'customers', component: IndexCustomerComponent },
-  { path: 'customers/create', component: CreateCustomerComponent },
+  { path: 'customers/create', component: CreateCustomerComponent,  },
   { path: 'customers/edit/:idCliente', component: EditCustomerComponent },
   { path: 'customers/detail/:idCliente', component: DetailCustomerComponent },
   { path: 'products', component: IndexProductComponent },

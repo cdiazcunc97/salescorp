@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CustomerService} from '../../../services/customer/customer.service';
 import {ICustomerViewModel} from '../../../models/ICustomerViewModel';
+import {Paginator} from '../../../models/Paginator';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
   selector: 'app-index-customer',
@@ -10,12 +12,15 @@ import {ICustomerViewModel} from '../../../models/ICustomerViewModel';
 export class IndexCustomerComponent implements OnInit {
 
   public isLoading: boolean = true;
-  public customers: ICustomerViewModel[] = [];
-  constructor(private customerService: CustomerService) { }
+  public paginator: Paginator<ICustomerViewModel>;
+  constructor(private customerService: CustomerService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.customerService.getCustomersPaginate().subscribe(customers => {
-      this.customers = customers;
+    const queryParams = this.activatedRoute.snapshot.queryParams
+    const page = queryParams.page || 1;
+    const limit = queryParams.limit || 5;
+    this.customerService.getCustomersPaginate(page, limit).subscribe(paginator => {
+      this.paginator = paginator;
       this.isLoading = false;
     });
   }
@@ -25,6 +30,18 @@ export class IndexCustomerComponent implements OnInit {
       document.getElementById('customer-' + idCliente).remove();
       this.ngOnInit();
     });
+  }
+
+  changePage(page, limit, state){
+    if(state){
+      this.paginator.items = [];
+      this.isLoading = true;
+      this.customerService.getCustomersPaginate(page, limit).subscribe(paginator => {
+        this.paginator = paginator;
+        this.isLoading = false;
+      });
+    }
+
   }
 
 }

@@ -3,6 +3,7 @@ import {UnitOfWorkService} from '../unitOfWork/unit-of-work.service';
 import {Observable} from 'rxjs';
 import {ICustomerViewModel} from '../../models/ICustomerViewModel';
 import {AppConstans} from '../../utils/AppConstans';
+import {Paginator} from '../../models/Paginator';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,15 @@ export class CustomerService {
     this.baseUrlCustomer = this.appConstans.baseURL + 'clientes/';
   }
 
-  getCustomersPaginate(): Observable<ICustomerViewModel[]> {
-    return this.unitOfWork.getQueryable<ICustomerViewModel[]>(this.baseUrlCustomer);
+  getCustomersPaginate(page ?, itemsPerPage ?): Observable<Paginator<ICustomerViewModel>> {
+    if(page > 0 && itemsPerPage > 0)
+      return this.unitOfWork.getQueryable<Paginator<ICustomerViewModel>>(this.appConstans.baseURL + 'clientes?page=' + page + '&limit=' + itemsPerPage);
+    else
+      return this.unitOfWork.getQueryable<Paginator<ICustomerViewModel>>(this.baseUrlCustomer);
   }
 
   getCustomerById(idCustomer): Observable<ICustomerViewModel> {
-    return this.unitOfWork.getById<ICustomerViewModel>(this.baseUrlCustomer + idCustomer);
+      return this.unitOfWork.getById<ICustomerViewModel>(this.baseUrlCustomer + idCustomer);
   }
 
   createCustomer(customer: ICustomerViewModel): Observable<ICustomerViewModel> {
